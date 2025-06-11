@@ -31,7 +31,7 @@ const HowToHelp = () => {
   ];
 
   return (
-    <div className="bg-[#fff9f3] min-h-screen px-6 md:px-20 py-20 mt-10">
+    <div className="bg-[#fff9f3] min-h-screen px-6 md:px-20 py-20">
       <div className="max-w-6xl mx-auto">
         {/* Heading */}
         <div className="text-center mb-16">

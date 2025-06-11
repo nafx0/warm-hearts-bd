@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import iconImg from "../assets/icons/titleIcon.png";
@@ -14,6 +14,21 @@ export default function Navbar() {
     logOut();
   };
 
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", onScroll);
+
+    // Initial check in case user reloads page scrolled down
+    onScroll();
+
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const navLinks = [
     { to: "/", label: "Home" },
     { to: "/about-us", label: "About Us" },
@@ -21,7 +36,11 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-white shadow-md fixed w-full top-0 z-50">
+    <nav
+      className={`fixed w-full top-0 z-50 transition-colors duration-300 ${
+        scrolled ? "bg-white shadow-md" : "bg-transparent"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 md:px-0 py-3 flex justify-between items-center">
         {/* Logo */}
         <Link
@@ -40,7 +59,7 @@ export default function Navbar() {
               className={({ isActive }) =>
                 isActive
                   ? "text-red-600 font-semibold"
-                  : "text-gray-700 hover:text-red-500 transition-colors"
+                  : "text-neutral-400 hover:text-red-500 transition-colors"
               }
             >
               {link.label}
@@ -53,7 +72,7 @@ export default function Navbar() {
               className={({ isActive }) =>
                 isActive
                   ? "text-red-600 font-semibold"
-                  : "text-gray-700 hover:text-red-500 transition-colors"
+                  : "text-neutral-400 hover:text-red-500 transition-colors"
               }
             >
               Donate Now
@@ -68,8 +87,9 @@ export default function Navbar() {
                   "https://img.icons8.com/nolan/64/user-default.png"
                 }
                 onError={(e) => {
-                  e.target.onerror = null; // Prevents infinite loop
-                  e.target.src = "https://img.icons8.com/nolan/64/user-default.png";
+                  e.target.onerror = null;
+                  e.target.src =
+                    "https://img.icons8.com/nolan/64/user-default.png";
                 }}
                 alt="User"
                 className="w-9 h-9 rounded-full border"
@@ -94,7 +114,7 @@ export default function Navbar() {
         {/* Mobile Menu Button */}
         <button
           onClick={toggleMenu}
-          className="md:hidden text-gray-700 focus:outline-none"
+          className="md:hidden text-neutral-400 focus:outline-none"
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
@@ -111,7 +131,7 @@ export default function Navbar() {
               className={({ isActive }) =>
                 isActive
                   ? "block text-red-600 font-semibold"
-                  : "block text-gray-700 hover:text-red-500 transition-colors"
+                  : "block text-neutral-400 hover:text-red-500 transition-colors"
               }
             >
               {link.label}
@@ -125,7 +145,7 @@ export default function Navbar() {
               className={({ isActive }) =>
                 isActive
                   ? "block text-red-600 font-semibold"
-                  : "block text-gray-700 hover:text-red-500"
+                  : "block text-neutral-400 hover:text-red-500"
               }
             >
               Donate Now

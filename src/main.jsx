@@ -15,36 +15,44 @@ import Volunteer from "./pages/Volunteer";
 import AuthProvider from "./provider/AuthProvider";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import { ParallaxProvider } from "react-scroll-parallax";
+import "aos/dist/aos.css";
+import "animate.css";
+import { useAOS } from "./hooks/useAOS";
+
+// Top-level AOS initializer wrapper
+function RootApp() {
+  useAOS();
+
+  return (
+    <AuthProvider>
+      <ParallaxProvider>
+        <RouterProvider router={router} />
+        <ToastContainer />
+      </ParallaxProvider>
+    </AuthProvider>
+  );
+}
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout></MainLayout>,
-    errorElement: <ErrorPage></ErrorPage>,
+    element: <MainLayout />,
+    errorElement: <ErrorPage />,
     children: [
-      {
-        path: "/",
-        element: <Home></Home>,
-      },
-      {
-        path: "/about-us",
-        element: <AboutUs></AboutUs>,
-      },
-
+      { path: "/", element: <Home /> },
+      { path: "/about-us", element: <AboutUs /> },
       {
         path: "/campaigns/:id",
         loader: () => fetch("/data/campaignData.json"),
-        element: <Campaign></Campaign>,
+        element: <Campaign />,
       },
-      {
-        path: "/how-to-help",
-        element: <HowToHelp></HowToHelp>,
-      },
+      { path: "/how-to-help", element: <HowToHelp /> },
       {
         path: "/donation",
         element: (
           <PrivateRoute>
-            <Donation></Donation>
+            <Donation />
           </PrivateRoute>
         ),
       },
@@ -52,27 +60,18 @@ const router = createBrowserRouter([
         path: "/become-a-volunteer-today",
         element: (
           <PrivateRoute>
-            <Volunteer></Volunteer>
+            <Volunteer />
           </PrivateRoute>
         ),
       },
-      {
-        path: "/login",
-        element: <Login></Login>,
-      },
-      {
-        path: "/register",
-        element: <Register></Register>,
-      },
+      { path: "/login", element: <Login /> },
+      { path: "/register", element: <Register /> },
     ],
   },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-      <ToastContainer></ToastContainer>
-    </AuthProvider>
+    <RootApp />
   </StrictMode>
 );

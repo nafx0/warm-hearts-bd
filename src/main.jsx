@@ -15,6 +15,7 @@ import Volunteer from "./pages/Volunteer";
 import AuthProvider from "./provider/AuthProvider";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import { ParallaxProvider } from "react-scroll-parallax";
 
 const router = createBrowserRouter([
   {
@@ -71,8 +72,10 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
-      <RouterProvider router={router} />
-      <ToastContainer></ToastContainer>
+      <ParallaxProvider>
+        <RouterProvider router={router} />
+        <ToastContainer></ToastContainer>
+      </ParallaxProvider>
     </AuthProvider>
   </StrictMode>
 );

@@ -2,7 +2,7 @@
 
 ---
 
-🌐 [Live Site](https://warm-hearts-bd.netlify.app) · 🧑‍💻 Built by [@nafx0](https://github.com/nafx0)
+🌐 [Live Site](https://warm-hearts-bd.web.app/) · 🧑‍💻 Built by [@nafx0](https://github.com/nafx0)
 
 ---
 
